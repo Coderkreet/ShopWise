@@ -261,13 +261,13 @@ const HomeScreen = () => {
             <Text style={styles.ratingText}>({item.reviews || 0})</Text>
           )}
         </View>
-        <TouchableOpacity style={styles.addToCartButton}>
-          <Icon name="cart-outline" size={16} color="#FFFFFF" />
-          <Text   
-            onPress={async () => {
+        <TouchableOpacity  onPress={async () => {
               await AsyncStorage.setItem('cartItem', JSON.stringify(item.id));
               addToCart(item);
-            }}
+            }} style={styles.addToCartButton}>
+          <Icon name="cart-outline" size={16} color="#FFFFFF" />
+          <Text   
+           
           
           style={styles.addToCartText}>Add</Text>
         </TouchableOpacity>
@@ -372,7 +372,7 @@ const HomeScreen = () => {
       
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionTitle}>Featured Products</Text>
-        <TouchableOpacity onPress={() => handleNavigate('AllProducts')}>
+        <TouchableOpacity onPress={() => handleNavigate('Products')}>
           <Text style={styles.seeAllText}>See All</Text>
         </TouchableOpacity>
       </View>
@@ -383,7 +383,7 @@ const HomeScreen = () => {
     <View style={styles.footer}>
       <TouchableOpacity 
         style={styles.viewAllButton}
-        onPress={() => handleNavigate('AllProducts')}
+        onPress={() => handleNavigate('Products')}
       >
         <Text style={styles.viewAllText}>View All Products</Text>
         <Icon name="arrow-forward-outline" size={16} color="#5048E5" />

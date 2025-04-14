@@ -90,18 +90,18 @@ const LoginScreen = ({ onLogin }) => {
 
 const LoginForm = ({ onLogin }) => {
   const { login } = useContext(AuthContext);
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleLogin = async () => {
-    if (!username || !password) {
+    if (!email || !password) {
       Alert.alert('Login Failed', 'Please enter both email and password');
       return;
     }
     
-    const result = await login(username, password);
+    const result = await login(email, password);
     console.log(result);
     if (result.success) {
       onLogin(); // ✅ this will trigger navigation through App.js state
@@ -119,8 +119,8 @@ const LoginForm = ({ onLogin }) => {
           placeholder="Email Address"
           keyboardType="email-address"
           autoCapitalize="none"
-          value={username}
-          onChangeText={setUsername}
+          value={email}
+          onChangeText={setEmail}
           placeholderTextColor="#9CA3AF"
         />
       </View>

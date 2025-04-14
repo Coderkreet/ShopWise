@@ -26,7 +26,6 @@ const Wishlist = () => {
             source={{ uri: item.image }} 
             style={styles.image}
             resizeMode="cover"
-            PlaceholderContent={<ActivityIndicator color="#8A2BE2" />}
           />
           <View style={styles.priceBadge}>
             <Text style={styles.priceText}>${item.price.toFixed(2)}</Text>
@@ -103,7 +102,10 @@ const Wishlist = () => {
           </View>
           <Text style={styles.emptyTitle}>Your wishlist is empty</Text>
           <Text style={styles.emptySubtitle}>Save items to shop them later</Text>
-          <TouchableOpacity style={styles.browseButton}>
+          <TouchableOpacity 
+            style={styles.browseButton}
+            onPress={() => navigation.navigate('ProductList')}
+          >
             <Text style={styles.browseButtonText}>BROWSE PRODUCTS</Text>
           </TouchableOpacity>
         </View>
@@ -219,7 +221,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   contentContainer: {
-    padding: this,
+    padding: 12, // Fixed: replaced 'this' with an actual value
   },
   categoryContainer: {
     marginTop: 12,

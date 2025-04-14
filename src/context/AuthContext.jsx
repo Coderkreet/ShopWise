@@ -15,13 +15,13 @@ export const AuthProvider = ({ children }) => {
     loadUser();
   }, []);
 
-  const login = async (username, password) => {
+  const login = async (email, password) => {
     try {
       const res = await fetch('https://fakestoreapi.com/users');
       const users = await res.json();
 
       const matchedUser = users.find(
-        (u) => u.username === username && u.password === password
+        (u) => u.email === email && u.password === password
       );
 
       if (matchedUser) {

@@ -173,12 +173,12 @@ const AllProducts = () => {
             </View>
             <Text style={styles.ratingText}>({ratingInfo.count})</Text>
           </View>
-          <TouchableOpacity style={styles.addToCartButton}>
-            <Text
-              onPress={async () => {
+          <TouchableOpacity   onPress={async () => {
                 await AsyncStorage.setItem('cartItem', JSON.stringify(item.id));
                 addToCart(item);
-              }}
+              }} style={styles.addToCartButton}>
+            <Text
+            
             style={styles.addToCartText}>Add to Cart</Text>
           </TouchableOpacity>
         </View>

@@ -10,16 +10,23 @@ import {
 } from 'react-native';
 import { useCart } from '../../context/CartContext';
 import Toast from 'react-native-easy-toast';
+import { useNavigation } from '@react-navigation/native';
 import ToastTest from "../../../ToastTest";
 const CartScreen = () => {
   // Get cart data and methods from context
   const { cart, removeFromCart, updateQuantity, loading } = useCart();
+   const navigation = useNavigation();
 
   // Calculate cart total
   const calculateTotal = () => {
     return cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0).toFixed(2);
   };
-
+ const handleNavigationHome = ()=>{
+  navigation.navigate('Home');
+ }
+ const handleNavigationNotFound = ()=>{
+  navigation.navigate('NotFound');
+ }
 
   let toastRef;
   const showToast = () => {
@@ -101,7 +108,9 @@ const CartScreen = () => {
             </View>
             
             <TouchableOpacity style={styles.checkoutButton}>
-              <Text style={styles.checkoutButtonText}>Proceed to Checkout</Text>
+              <Text
+               onPress={handleNavigationNotFound}
+               style={styles.checkoutButtonText}>Proceed to Checkout</Text>
             </TouchableOpacity>
           </View>
         </>
@@ -110,7 +119,9 @@ const CartScreen = () => {
         <View style={styles.emptyCartContainer}>
           <Text style={styles.emptyCartText}>Your cart is empty</Text>
           <TouchableOpacity style={styles.continueShoppingButton}>
-            <Text style={styles.continueShoppingButtonText}>Continue Shopping</Text>
+            <Text  
+            onPress={ handleNavigationHome}
+             style={styles.continueShoppingButtonText}>Continue Shopping</Text>
           </TouchableOpacity>
         </View>
       )}

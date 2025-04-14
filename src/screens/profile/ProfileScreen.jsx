@@ -31,11 +31,16 @@ export default class ProfileScreen extends Component {
         },
         { 
           text: "Logout", 
-          onPress: () => {
-            // Call the logout function from AuthContext
-            this.props.navigation.navigate('Login');
-            logout();
-            // Navigate to login screen (adjust as needed based on your navigation setup)
+          onPress: async () => {
+            try {
+              // Call the logout function from AuthContext
+              await logout();
+               this.props.navigation.navigate('Login')
+              // Instead of navigating, we'll let the App component handle the state change
+              // which will automatically show the AuthStack
+            } catch (error) {
+              console.error('Logout failed:', error);
+            }
           },
           style: "destructive"
         }
@@ -87,7 +92,9 @@ export default class ProfileScreen extends Component {
                       </Text>
                     </View>
                     
-                    <TouchableOpacity style={styles.editButton} activeOpacity={0.8}>
+                    <TouchableOpacity style={styles.editButton}
+                     onPress={() => this.props.navigation.navigate('NotFound')}
+                    activeOpacity={0.8}>
                       <Icon name="pencil" size={18} color="#FFFFFF" style={styles.buttonIcon} />
                       <Text style={styles.buttonText}>Edit Profile</Text>
                     </TouchableOpacity>
@@ -97,7 +104,7 @@ export default class ProfileScreen extends Component {
                   <View style={styles.menuCard}>
                     <TouchableOpacity 
                       style={styles.menuItem}
-                      onPress={() => this.props.navigation.navigate('Orders')}
+                      onPress={() => this.props.navigation.navigate('NotFound')}
                     >
                       <View style={styles.menuIconContainer}>
                         <Icon name="cart" size={22} color="#4F46E5" />
@@ -125,7 +132,7 @@ export default class ProfileScreen extends Component {
                   <View style={styles.menuCard}>
                     <TouchableOpacity 
                       style={styles.menuItem}
-                      onPress={() => this.props.navigation.navigate('PaymentCards')}
+                      onPress={() => this.props.navigation.navigate('NotFound')}
                     >
                       <View style={styles.menuIconContainer}>
                         <Icon name="card" size={22} color="#4F46E5" />

@@ -16,6 +16,7 @@ import Alllproducts from './src/screens/products/Alllproducts';
 import CartScreen from './src/screens/cart/CartScreen';
 import { WishlistProvider } from './src/context/WishlistContext';
 import Wishlist from './src/screens/cart/Wishlist';
+import NotFoundPage from './src/screens/cart/NotfoundScreen';
 // import Toast from 'react-native-toast-message';
 
 
@@ -88,11 +89,11 @@ const HomeTabs = () => {
 };
 
 // Auth Stack (before login)
-const AuthStack = ({ onLogin }) => {
+const AuthStack = ({ onLogin, onLogout }) => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Login" options={{ headerShown: false }}>
-        {props => <LoginScreen {...props} onLogin={onLogin} />}
+        {props => <LoginScreen {...props} onLogin={onLogin} onLogout={onLogout} />}
       </Stack.Screen>
     </Stack.Navigator>
   );
@@ -116,9 +117,9 @@ const MainStack = () => {
           headerTitleStyle: styles.headerTitle,
         }}
       />
-       <Stack.Screen name="Cart"  component={CartScreen} />
-       <Stack.Screen name="Wishlist"  component={Wishlist} />
-
+      <Stack.Screen name="Cart" component={CartScreen} />
+      <Stack.Screen name="Wishlist" component={Wishlist} />
+      <Stack.Screen name="NotFound" component={NotFoundPage} />
     </Stack.Navigator>
   );
 };
@@ -143,18 +144,24 @@ export default function App() {
     setIsLoggedIn(true);
   };
 
- 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
 
   return (
     <AuthProvider>
       <ProductProvider>
         <CartProvider>
-        <WishlistProvider>
-          <NavigationContainer>
-            {isLoggedIn ? <MainStack /> : <AuthStack onLogin={handleLogin} />}
-          </NavigationContainer>
-          {/* <Toast /> */}
-         </WishlistProvider>
+          <WishlistProvider>
+            <NavigationContainer>
+              {isLoggedIn ? (
+                <MainStack />
+              ) : (
+                <AuthStack onLogin={handleLogin} onLogout={handleLogout} />
+              )}
+            </NavigationContainer>
+            {/* <Toast /> */}
+          </WishlistProvider>
         </CartProvider>
       </ProductProvider>
     </AuthProvider>
